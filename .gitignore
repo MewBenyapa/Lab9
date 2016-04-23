@@ -2,6 +2,6 @@ bin/
 build/
 *.class
 *.tmp
-.setting
+.settings/
 .project
 .classpath
