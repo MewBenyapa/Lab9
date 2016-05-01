@@ -25,6 +25,7 @@ public class ConvertUI extends JFrame {
 
 	private JRadioButton right;
 	private JRadioButton left;
+	private JRadioButton auto;
 
 	private UnitConverter converter;
 
@@ -78,7 +79,7 @@ public class ConvertUI extends JFrame {
 				for (Unit u : area)
 					unit1ComboBox.addItem(u);
 				unit1ComboBox = new JComboBox<Unit>(area);
-				
+
 				Unit[] areaForUnit2 = converter.getArea();
 				for (Unit u : areaForUnit2)
 					unit2ComboBox.addItem(u);
@@ -118,7 +119,7 @@ public class ConvertUI extends JFrame {
 					unit2ComboBox.addItem(u);
 				unit2ComboBox = new JComboBox<Unit>(volumeForUnit2);
 			}
-			
+
 		});
 
 		JMenuItem exit = new JMenuItem("Exit");
@@ -164,8 +165,10 @@ public class ConvertUI extends JFrame {
 		ButtonGroup group = new ButtonGroup();
 		left = new JRadioButton("Left -> Right");
 		right = new JRadioButton("Right -> Left");
+		auto = new JRadioButton("Auto");
 		group.add(left);
 		group.add(right);
+		group.add(auto);
 
 		/**
 		 * Add components to window.
@@ -182,6 +185,7 @@ public class ConvertUI extends JFrame {
 		contents1.add(clearButton);
 		contents2.add(left);
 		contents2.add(right);
+		contents2.add(auto);
 
 		setJMenuBar(menuBar);
 
@@ -239,22 +243,29 @@ public class ConvertUI extends JFrame {
 					// call the converter to convert the value
 					// write the result into output field
 
-					if (left.isSelected()) {
-						inputField2.setText(converter.convert(value, unit1, unit2) + "");
-					} else if(right.isSelected()) {
-						inputField1.setText(converter.convert(value, unit2, unit1) + "");
-					} 
 
-					if (inputField1.getText().length() > 0) {
-						inputField2.setText(converter.convert(value, unit1, unit2) + "");
-					} else {
-						inputField1.setText(converter.convert(value, unit2, unit1) + "");
-					}
+					if (auto.isSelected()) {
+						if (inputField1.getText().length() > 0) {
+							inputField2.setText(converter.convert(value, unit1, unit2) + "");
+						} else {
+							inputField1.setText(converter.convert(value, unit2, unit1) + "");
+						}						
+				} else if (left.isSelected()) {
+					inputField2.setText(converter.convert(value, unit1, unit2) + "");
+				} else if(right.isSelected()) {
+					inputField1.setText(converter.convert(value, unit2, unit1) + "");
+				} 
 
-				} catch (NumberFormatException exception) {
-					System.out.print("You must input number!");
-				}
-			}			
-		}
+				//					if (inputField1.getText().length() > 0) {
+				//						inputField2.setText(converter.convert(value, unit1, unit2) + "");
+				//					} else {
+				//						inputField1.setText(converter.convert(value, unit2, unit1) + "");
+				//					}
+
+			} catch (NumberFormatException exception) {
+				System.out.print("You must input number!");
+			}
+		}			
 	}
+}
 }
