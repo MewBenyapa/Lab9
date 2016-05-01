@@ -5,13 +5,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/*
+/**
  * User can convert unit.
  */
 
 public class ConvertUI extends JFrame {
-	
-	/*
+
+	/**
 	 * Create attributes.
 	 */
 	private JButton convertButton;
@@ -25,11 +25,10 @@ public class ConvertUI extends JFrame {
 
 	private JRadioButton right;
 	private JRadioButton left;
-	private JRadioButton auto;
 
 	private UnitConverter converter;
 
-	private JLabel equalLabel;
+	private JLabel equalLabel; 
 
 	public ConvertUI(UnitConverter uc) {
 		this.converter = uc;
@@ -41,14 +40,105 @@ public class ConvertUI extends JFrame {
 	public void run() {
 		setVisible(true);
 	}
-	
-	/*
+
+	/**
 	 * Set all graphic 
 	 */
 
 	private void initComponents() {
-		
-		/*
+
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menu = new JMenu("Units");
+
+		JMenuItem length = new JMenuItem("Length");
+		length.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Unit[] lengths = converter.getLength();
+				unit1ComboBox.removeAllItems();
+				for (Unit u : lengths)
+					unit1ComboBox.addItem(u);
+				unit1ComboBox = new JComboBox<Unit>(lengths);
+
+				Unit[] lengthsForUnit2 = converter.getLength();
+				unit2ComboBox.removeAllItems();
+				for (Unit u : lengthsForUnit2)
+					unit2ComboBox.addItem(u);
+				unit2ComboBox = new JComboBox<Unit>(lengthsForUnit2);
+			}
+		});
+
+		JMenuItem area = new JMenuItem("Area");
+		area.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Unit[] area = converter.getArea();
+				for (Unit u : area)
+					unit1ComboBox.addItem(u);
+				unit1ComboBox = new JComboBox<Unit>(area);
+				
+				Unit[] areaForUnit2 = converter.getArea();
+				for (Unit u : areaForUnit2)
+					unit2ComboBox.addItem(u);
+				unit2ComboBox = new JComboBox<Unit>(areaForUnit2);
+			}
+		});
+
+		JMenuItem weight = new JMenuItem("Weight");
+		weight.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Unit[] weight = converter.getWeight();
+				for (Unit u : weight)
+					unit1ComboBox.addItem(u);
+				unit1ComboBox = new JComboBox<Unit>(weight);
+
+				Unit[] weightForUnit2 = converter.getWeight();
+				for (Unit u : weightForUnit2)
+					unit2ComboBox.addItem(u);
+				unit2ComboBox = new JComboBox<Unit>(weightForUnit2);
+			}
+		});
+
+		JMenuItem volume = new JMenuItem("Volume");
+		volume.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Unit[] volume = converter.getVolume();
+				for (Unit u : volume)
+					unit1ComboBox.addItem(u);
+				unit1ComboBox = new JComboBox<Unit>(volume);
+
+				Unit[] volumeForUnit2 = converter.getVolume();
+				for (Unit u : volumeForUnit2)
+					unit2ComboBox.addItem(u);
+				unit2ComboBox = new JComboBox<Unit>(volumeForUnit2);
+			}
+			
+		});
+
+		JMenuItem exit = new JMenuItem("Exit");
+		exit.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
+
+		menuBar.add(menu);
+
+		menu.add(length);
+		menu.add(area);
+		menu.add(weight);
+		menu.add(volume);
+		menu.add(exit);
+
+		/**
 		 * Set layout
 		 */
 		Container bigContent = new Container();
@@ -56,7 +146,7 @@ public class ConvertUI extends JFrame {
 
 		Container contents1 = new Container();
 		contents1.setLayout(new FlowLayout());
-		
+
 		Container contents2 = new Container();
 		contents2.setLayout(new FlowLayout());
 
@@ -74,26 +164,10 @@ public class ConvertUI extends JFrame {
 		ButtonGroup group = new ButtonGroup();
 		left = new JRadioButton("Left -> Right");
 		right = new JRadioButton("Right -> Left");
-		auto = new JRadioButton("Auto-detect");
 		group.add(left);
 		group.add(right);
-		group.add(auto);
-		
 
-		// get name from unit by using array;
-		unit1ComboBox = new JComboBox<Unit>();
-		Unit[] lengths = converter.getUnits();
-		for (Unit u : lengths)
-			unit1ComboBox.addItem(u);
-		unit1ComboBox = new JComboBox<Unit>(lengths);
-
-		unit2ComboBox = new JComboBox<Unit>();
-		Unit[] lengthsForUnit2 = converter.getUnits();
-		for (Unit u : lengthsForUnit2)
-			unit2ComboBox.addItem(u);
-		unit2ComboBox = new JComboBox<Unit>(lengthsForUnit2);
-
-		/*
+		/**
 		 * Add components to window.
 		 */
 		this.add(bigContent);
@@ -108,23 +182,24 @@ public class ConvertUI extends JFrame {
 		contents1.add(clearButton);
 		contents2.add(left);
 		contents2.add(right);
-		contents2.add(auto);
+
+		setJMenuBar(menuBar);
 
 		getContentPane().add(bigContent);
 
 		ActionListener listenerConvert = new ConvertButtonlistener();
 		convertButton.addActionListener(listenerConvert);
-		
+
 		ActionListener listenerClear = new ClearButtonLisener();
 		clearButton.addActionListener(listenerClear);
 
 		this.pack();
 	}
-	
-	/*
+
+	/**
 	 * Set clear button.
 	 */
-	
+
 	class ClearButtonLisener implements ActionListener {
 		public void actionPerformed(ActionEvent evt) {
 			inputField1.setText("");
@@ -132,10 +207,10 @@ public class ConvertUI extends JFrame {
 		}
 	}
 
-	/*
+	/**
 	 * Set convert button.
 	 */
-	
+
 	class ConvertButtonlistener implements ActionListener {
 		public void actionPerformed(ActionEvent evt) {
 
@@ -152,7 +227,7 @@ public class ConvertUI extends JFrame {
 					s = inputField2.getText().trim();
 				}
 			}
-			
+
 			if (s.length() > 0) {
 				try {
 					double value = Double.valueOf(s);
@@ -163,17 +238,18 @@ public class ConvertUI extends JFrame {
 
 					// call the converter to convert the value
 					// write the result into output field
-					if (auto.isSelected()) {
-						if (inputField1.getText().length() > 0) {
-							inputField2.setText(converter.convert(value, unit1, unit2) + "");
-						} else {
-							inputField1.setText(converter.convert(value, unit2, unit1) + "");
-						}
-					} else if (left.isSelected()) {
+
+					if (left.isSelected()) {
 						inputField2.setText(converter.convert(value, unit1, unit2) + "");
 					} else if(right.isSelected()) {
 						inputField1.setText(converter.convert(value, unit2, unit1) + "");
 					} 
+
+					if (inputField1.getText().length() > 0) {
+						inputField2.setText(converter.convert(value, unit1, unit2) + "");
+					} else {
+						inputField1.setText(converter.convert(value, unit2, unit1) + "");
+					}
 
 				} catch (NumberFormatException exception) {
 					System.out.print("You must input number!");
@@ -181,11 +257,4 @@ public class ConvertUI extends JFrame {
 			}			
 		}
 	}
-
-	public static void main(String[] args) {
-		UnitConverter uc = new UnitConverter();
-		ConvertUI show = new ConvertUI(uc);
-		show.run();
-	}
-
 }

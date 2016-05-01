@@ -1,6 +1,13 @@
 
 public class UnitConverter {
-	/*
+	
+	private UnitFactory factory;
+	
+	public UnitConverter () {
+		this.factory = UnitFactory.getInstance();
+	}
+	
+	/**
 	 * Converts unit.
 	 */
 	public double convert(double amount, Unit fromUnit, Unit toUnit) {
@@ -9,9 +16,20 @@ public class UnitConverter {
 		return x;
 	}
 	
-	/*
-	 * @return return Length.values.
+	/**
+	 * @return return values of units.
 	 */
-	public Unit[] getUnits() { return Length.values(); }
+	
+	public UnitType[] getUnitTypes() { return factory.getUnitTypes(); }
+	
+	public Unit[] getUnits(UnitType type) { return factory.getUnits(type); } 
+	
+	public Unit[] getLength() { return Length.values(); }
+	
+	public Unit[] getWeight() { return Weight.values(); }
+	
+	public Unit[] getArea() { return Area.values(); }
+	
+	public Unit[] getVolume() { return Volume.values(); }
 	
 }

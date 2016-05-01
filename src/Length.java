@@ -1,9 +1,10 @@
 
-/*
- * Set name and value of unit.
+/**
+ * Set name and value of units.
  */
 
 public enum Length implements Unit {
+	
 	METER("Meter", 1.0),
 	CENTIMETER("Centimeter", 0.01),
 	KILOMETER("Kilometer", 1000.0),
@@ -11,13 +12,13 @@ public enum Length implements Unit {
 	FOOT("Foot", 0.30480),
 	WA("Wa", 2.0);
 	
-	/*
-	 * Create attributess 
+	/**
+	 * Create attributes 
 	 */
 	private final String name;
 	private final double value;
 	
-	/*
+	/**
 	 * @param name and value
 	 */
 	Length(String name, double value) {
@@ -25,10 +26,11 @@ public enum Length implements Unit {
 		this.value = value;
 	}
 	
-	/*
+	/**
 	 * @return value
-	 * return value of unit.
+	 * return value of units
 	 */
 	public double getValue() { return value; }
+	public String toString() { return name; }
 	
 }
