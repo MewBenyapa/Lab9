@@ -246,26 +246,20 @@ public class ConvertUI extends JFrame {
 
 					if (auto.isSelected()) {
 						if (inputField1.getText().length() > 0) {
-							inputField2.setText(converter.convert(value, unit1, unit2) + "");
+							inputField2.setText(String.valueOf(converter.convert(value, unit1, unit2)));
 						} else {
-							inputField1.setText(converter.convert(value, unit2, unit1) + "");
+							inputField1.setText(String.valueOf(converter.convert(value, unit2, unit1)));
 						}						
-				} else if (left.isSelected()) {
-					inputField2.setText(converter.convert(value, unit1, unit2) + "");
-				} else if(right.isSelected()) {
-					inputField1.setText(converter.convert(value, unit2, unit1) + "");
-				} 
+					} else if (left.isSelected()) {
+						inputField2.setText(String.valueOf(converter.convert(value, unit1, unit2)));
+					} else if(right.isSelected()) {
+						inputField1.setText(String.valueOf(converter.convert(value, unit2, unit1)));
+					} 
 
-				//					if (inputField1.getText().length() > 0) {
-				//						inputField2.setText(converter.convert(value, unit1, unit2) + "");
-				//					} else {
-				//						inputField1.setText(converter.convert(value, unit2, unit1) + "");
-				//					}
-
-			} catch (NumberFormatException exception) {
-				System.out.print("You must input number!");
-			}
-		}			
+				} catch (NumberFormatException exception) {
+					System.out.print("You must input number!");
+				}
+			}			
+		}
 	}
-}
 }
